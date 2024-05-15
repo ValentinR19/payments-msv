@@ -12,6 +12,7 @@ export class PaymentsService {
   async createPaymentsession(createPaymentSessionDTO: CreatePaymentSessionDTO) {
     this.logger.log(`Se inicia la creacion del pago`);
     const { currency, items, idOrder } = createPaymentSessionDTO;
+
     const lineItems = items.map((item) => {
       return {
         price_data: {
@@ -24,7 +25,6 @@ export class PaymentsService {
         quantity: item.quantity,
       };
     });
-
     const session = await this.stripe.checkout.sessions.create({
       payment_intent_data: {
         metadata: {
@@ -39,7 +39,11 @@ export class PaymentsService {
     });
     this.logger.log(`Se Completa la creacion del pago`);
 
-    return session;
+    return {
+      cancelUrl: session.cancel_url,
+      successUrl: session.success_url,
+      url: session.url,
+    };
   }
 
   async stripeWebhook(req: Request, res: Response) {
