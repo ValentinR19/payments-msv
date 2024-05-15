@@ -2,6 +2,9 @@ import { Type } from 'class-transformer';
 import { ArrayMinSize, IsArray, IsNotEmpty, IsNumber, IsPositive, IsString, MaxLength, ValidateNested } from 'class-validator';
 
 export class CreatePaymentSessionDTO {
+  @IsNumber()
+  idOrder: number;
+
   @MaxLength(3)
   @IsString()
   @IsNotEmpty()
