@@ -14,6 +14,7 @@ export class PaymentsController {
   }
 
   @MessagePattern('payment.success')
+  @Get('success')
   async success() {
     return {
       ok: true,
@@ -22,6 +23,7 @@ export class PaymentsController {
   }
 
   @MessagePattern('payment.cancelled')
+  @Get('cancelled')
   async cancelled() {
     return {
       ok: false,
