@@ -66,8 +66,9 @@ export class PaymentsService {
         const payload = {
           stripePaymentId: chargeSucceded.id,
           idOrder: chargeSucceded.metadata.idOrder,
-          receipUrl: chargeSucceded.receipt_url,
+          receiptUrl: chargeSucceded.receipt_url,
         };
+
         this.client.emit('payment.succeded', payload);
         break;
       default:
